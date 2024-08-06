@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import useInitialScreenSize from 'common/hooks/useInitialScreenSize'
 
-const Playground: React.FC = () => {
+const Image: React.FC = () => {
   const { width: w, height: h } = useInitialScreenSize()
 
   const initialWidth = 600
@@ -62,4 +62,4 @@ const Playground: React.FC = () => {
   )
 }
 
-export default Playground
+export default Image
