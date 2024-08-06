@@ -9,13 +9,22 @@ const Image: React.FC = () => {
   const [width, setWidth] = useState(initialWidth)
   const [height, setHeight] = useState(initialHeight)
 
+  useEffect(() => {
+    if (w) {
+      setWidth(w)
+    }
+    if (h) {
+      setHeight(h)
+    }
+  }, [w, h])
+
   const divRef = useRef<HTMLDivElement>(null)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleWheel = (event: WheelEvent) => {
     event.preventDefault()
     const scaleFactor = -0.4
-    const newWidth = Math.max(300, width + event.deltaY * scaleFactor)
+    const newWidth = Math.max(10, width + event.deltaY * scaleFactor)
     const newHeight = (newWidth / initialWidth) * initialHeight
     setWidth(newWidth)
     setHeight(newHeight)
@@ -23,6 +32,7 @@ const Image: React.FC = () => {
 
   useEffect(() => {
     const divElement = divRef.current
+
     if (divElement) {
       divElement.addEventListener('wheel', handleWheel)
     }

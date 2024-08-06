@@ -15,7 +15,7 @@ interface IconProps extends IconPropsBase {
   svg: Svg
 }
 
-function Icon({ svg: DefaultSvg, size = 6, className, isDefaultColor = true, role }: IconProps) {
+function Icon({ svg: DefaultSvg, size = 4, className, isDefaultColor = true, role }: IconProps) {
   const defaultColorClasses = cx('text-gray-200 hover:text-blue-500 group-hover:text-blue-500')
   const fullClassName = cx('inline-block', { [`${defaultColorClasses}`]: isDefaultColor }, className)
 

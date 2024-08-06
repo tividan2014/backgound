@@ -1,19 +1,42 @@
 import cx from 'classnames'
 
 import { Input as AntInput } from 'antd'
-import { ReactNode, useState } from 'react'
+import { ChangeEvent, WheelEvent, ReactNode, useState } from 'react'
+import { wheelStepSize } from 'common/constants'
 
 interface Props {
   className?: string
-  initialValue?: string
+  initialValue: number
   placeholder: string
   icon?: ReactNode
-  onlyNumbers?: boolean
   suffix?: string
+  min?: number
+  max?: number
+  onChange: (value: number) => void
 }
 
-const Input = ({ className, initialValue, placeholder, icon, suffix }: Props) => {
-  const [value, setValue] = useState(initialValue)
+const Input = ({ className, initialValue, placeholder, icon, suffix, min, max, onChange }: Props) => {
+  const [value, setValue] = useState<number>(initialValue)
+
+  const handleOnWheel = (e: WheelEvent<HTMLInputElement>) => {
+    const diectionSign = Math.sign(e.deltaY)
+    const currentValue = value - diectionSign * wheelStepSize
+
+    if (currentValue < min! || currentValue > max!) return
+
+    setValue(currentValue)
+    onChange(currentValue)
+  }
+
+  function handleOnChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (isNaN(Number(e.target.value))) return
+
+    const currentValue = Number(e.target.value)
+    if (currentValue < min! || currentValue > max!) return
+
+    setValue(currentValue)
+    onChange(currentValue)
+  }
 
   return (
     <AntInput
@@ -22,6 +45,9 @@ const Input = ({ className, initialValue, placeholder, icon, suffix }: Props) =>
       prefix={icon}
       suffix={suffix}
       value={value}
+      defaultValue={initialValue}
+      onChange={handleOnChange}
+      onWheel={handleOnWheel}
     />
   )
 }
