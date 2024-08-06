@@ -8,13 +8,22 @@ interface Props {
   initialValue?: string
   placeholder: string
   icon?: ReactNode
-  onlyNumbers?: true
+  onlyNumbers?: boolean
+  suffix?: string
 }
 
-const Input = ({ className, initialValue, placeholder, icon }: Props) => {
+const Input = ({ className, initialValue, placeholder, icon, suffix }: Props) => {
   const [value, setValue] = useState(initialValue)
 
-  return <AntInput className={cx(className, 'group')} placeholder={placeholder} prefix={icon} value={value} />
+  return (
+    <AntInput
+      className={cx(className, 'group')}
+      placeholder={placeholder}
+      prefix={icon}
+      suffix={suffix}
+      value={value}
+    />
+  )
 }
 
 export default Input
