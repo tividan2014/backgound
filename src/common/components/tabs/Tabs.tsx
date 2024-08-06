@@ -3,13 +3,19 @@ import cx from 'classnames'
 import { TabsProps, Tabs as AntTabs } from 'antd'
 import { ReactNode, useState } from 'react'
 import ColorPicker from '../colorPicker/ColorPicker'
-import { AddIcon } from 'common/icons'
+import { AddIcon, UploadIcon } from 'common/icons'
+import Button from '../button/Button'
 
 const items: TabsProps['items'] = [
   {
     key: '1',
     label: 'Solid',
-    children: <ColorPicker placeholder={''}></ColorPicker>,
+    children: (
+      <div className="flex">
+        <ColorPicker placeholder={''}></ColorPicker>
+        {/* <Button className="ml-2" label={'Add'} /> */}
+      </div>
+    ),
     icon: <div className="bg-sky-500 h-4 w-4 inline-block"></div>,
   },
   {
@@ -22,6 +28,11 @@ const items: TabsProps['items'] = [
     key: '3',
     label: 'Radial',
     children: 'Content of Tab Pane 3',
+  },
+  {
+    key: '4',
+    label: 'Image',
+    children: <Button label={'Upload'} icon={<UploadIcon />} />,
   },
 ]
 

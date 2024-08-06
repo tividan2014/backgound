@@ -45,7 +45,7 @@ const Image: React.FC = () => {
 
   return (
     <div
-      className="border-1 border-gray-600"
+      className="flex justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-500"
       ref={divRef}
       style={{
         width: `${width}px`,
@@ -56,15 +56,6 @@ const Image: React.FC = () => {
           linear-gradient(45deg, #fff 25%, transparent 25%,  transparent 75%, #fff 75%, #fff)`,
         backgroundPosition: '0 0, 25px 25px, 25px 0, 0 25px',
         backgroundSize: '50px 50px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        transition: 'width 0.5s, height 0.5s',
-        overflow: 'hidden',
       }}
     >
       Resize Me

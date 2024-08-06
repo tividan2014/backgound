@@ -1,6 +1,6 @@
 import Button from 'common/components/button'
 import Input from 'common/components/input/Input'
-import { AddIcon, HorizontalIcon, VerticalIcon, XMarkIcon } from 'common/icons'
+import { AddIcon, HorizontalIcon, PhotoIcon, VerticalIcon, XMarkIcon } from 'common/icons'
 import Tab from 'common/components/tabs/Tabs'
 import { CollapseProps } from 'antd'
 
@@ -67,7 +67,7 @@ export const playgroundFlowItems: CollapseProps['items'] = [
     label: 'Export',
     children: (
       <div className="flex justify-end">
-        <Button className="mt-2" label={'Export'} icon={<AddIcon />} />
+        <Button className="mt-2" label={'Export'} icon={<PhotoIcon />} />
       </div>
     ),
     style: panelStyle,
