@@ -1,5 +1,5 @@
-import Image from 'features/image/Image'
-import Collapse from 'features/collapse/Collapse'
+import Image from 'features/image'
+import Collapse from 'features/collapse'
 
 import { playgroundFlowItems } from './flowContent'
 

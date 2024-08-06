@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
-import useInitialScreenSize from 'common/hooks/useInitialScreenSize'
+import { useDispatch, useSelector } from '../../redux/hooks'
 
 const Image: React.FC = () => {
-  const { width: w, height: h } = useInitialScreenSize()
+  const dispatch = useDispatch()
+
+  const { width: ww, height: hh } = useSelector((state) => state.image)
 
   const initialWidth = 600
   const initialHeight = 400
@@ -10,13 +12,13 @@ const Image: React.FC = () => {
   const [height, setHeight] = useState(initialHeight)
 
   useEffect(() => {
-    if (w) {
-      setWidth(w)
+    if (ww) {
+      setWidth(ww)
     }
-    if (h) {
-      setHeight(h)
+    if (hh) {
+      setHeight(hh)
     }
-  }, [w, h])
+  }, [ww, hh])
 
   const divRef = useRef<HTMLDivElement>(null)
 
@@ -58,7 +60,7 @@ const Image: React.FC = () => {
         backgroundSize: '50px 50px',
       }}
     >
-      Resize Me
+      {ww}--{hh}--- Resize Me
     </div>
   )
 }

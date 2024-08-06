@@ -5,7 +5,7 @@ interface ScreenSize {
   height: number
 }
 
-const useInitialScreenSize = (): ScreenSize => {
+const useScreenSize = (): ScreenSize => {
   const [screenSize, setScreenSize] = useState<ScreenSize>({ width: 0, height: 0 })
 
   useEffect(() => {
@@ -15,4 +15,4 @@ const useInitialScreenSize = (): ScreenSize => {
   return screenSize
 }
 
-export default useInitialScreenSize
+export default useScreenSize

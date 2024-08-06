@@ -1,18 +1,21 @@
-import { theme, type CollapseProps } from 'antd'
-import Image from './features/image/Image'
-import Collapse from 'features/collapse/Collapse'
-import Input from 'common/components/input/Input'
-import { HorizontalIcon, VerticalIcon } from 'common/icons'
-import useInitialScreenSize from 'common/hooks/useInitialScreenSize'
-import Slider from 'common/components/slider/Slider'
-import Tab from 'common/components/tabs/Tabs'
-import Playground from 'features/playground/Playground'
+import useScreenSize from 'common/hooks/useScreenSize'
+import { setImgeSize } from 'features/image/store/imageSlice'
+import Playground from 'features/playground'
+import { useEffect } from 'react'
+import { useDispatch } from './redux/hooks'
 
 function App() {
-  const { width: w, height: h } = useInitialScreenSize()
+  const dispatch = useDispatch()
+  const { width, height } = useScreenSize()
+
+  useEffect(() => {
+    if (width && height) {
+      dispatch(setImgeSize({ width, height }))
+    }
+  }, [width, height, dispatch])
 
   return (
-    <div className="h-screen border-1 relative bg-background">
+    <div className="h-screen relative bg-body">
       <Playground />
     </div>
   )
