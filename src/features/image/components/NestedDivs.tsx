@@ -12,11 +12,11 @@ interface BackgroundBase {
   isVisible: boolean
 }
 
-interface SolidBackground extends BackgroundBase {
+export interface SolidBackground extends BackgroundBase {
   color: Color
 }
 
-interface LinearBackground extends BackgroundBase {
+export interface LinearBackground extends BackgroundBase {
   turn: number
   colors: Color[]
 }

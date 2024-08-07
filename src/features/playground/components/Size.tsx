@@ -15,7 +15,7 @@ const Size = () => {
         placeholder="Horizontal"
         icon={<HorizontalIcon />}
         suffix="px"
-        min={10}
+        min={0}
         max={10000}
         onChange={(value) => dispatch(setImageWidth(value))}
       />
@@ -29,7 +29,7 @@ const Size = () => {
         placeholder="Vertical"
         icon={<VerticalIcon />}
         suffix="px"
-        min={10}
+        min={0}
         max={10000}
         onChange={(value) => dispatch(setImageHeigth(value))}
       />

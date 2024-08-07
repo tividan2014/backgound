@@ -5,22 +5,26 @@ import cx from 'classnames'
 interface Props {
   className?: string
   items: CollapseProps['items']
+  bordered?: boolean
+  size?: 'small' | 'middle' | 'large'
+  accordion?: boolean
 }
 
-const Collapse = ({ className, items }: Props) => {
+const Collapse = ({ className, items, bordered = true, size, accordion }: Props) => {
   const onChange = (key: string | string[]) => {
     console.log(key)
   }
 
   return (
     <AntCollapse
-      className={cx(
-        className,
-        ' overflow-y-auto whitespace-pre-line rounded-lg border-1 border-gray-300 bg-white shadow-md shadow-gray-300'
-      )}
+      className={cx(className, ' ')}
       items={items}
       defaultActiveKey={['1']}
       onChange={onChange}
+      bordered={bordered}
+      ghost={false}
+      size={size}
+      accordion={accordion}
     />
   )
 }

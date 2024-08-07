@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import Collapse from '../../../features/collapse/Collapse'
+import Collapse from '../collapse/Collapse'
 import Input from '../input/Input'
 import { HorizontalIcon, VerticalIcon } from 'common/icons'
 
