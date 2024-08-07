@@ -1,5 +1,45 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from '../../redux/hooks'
+import { NestedDivs } from './components/NestedDivs'
+
+const backs = [
+  {
+    isVisible: false,
+    color: { r: 0, g: 0, b: 255, a: 0.1 },
+  },
+  {
+    isVisible: true,
+    color: { r: 255, g: 0, b: 0, a: 0.2 },
+  },
+  {
+    isVisible: true,
+    color: { r: 0, g: 255, b: 0, a: 0.3 },
+  },
+  {
+    isVisible: false,
+    turn: 45,
+    colors: [
+      { r: 255, g: 0, b: 0, a: 0.6 },
+      { r: 0, g: 0, b: 255, a: 0.7 },
+    ],
+  },
+  {
+    isVisible: false,
+    turn: 217,
+    colors: [
+      { r: 255, g: 0, b: 0, a: 0.7 },
+      { r: 255, g: 255, b: 255, a: 0 },
+    ],
+  },
+  {
+    isVisible: false,
+    turn: 336,
+    colors: [
+      { r: 0, g: 0, b: 255, a: 0.7 },
+      { r: 255, g: 255, b: 255, a: 0 },
+    ],
+  },
+]
 
 const Image: React.FC = () => {
   const dispatch = useDispatch()
@@ -60,7 +100,11 @@ const Image: React.FC = () => {
         backgroundSize: '50px 50px',
       }}
     >
-      {ww}--{hh}--- Resize Me
+      {/* {ww}--{hh}--- Resize Me */}
+      <NestedDivs backgrounds={backs} />
+
+      {/* <div className="w-full h-full bg-blue-600 bg-opacity-50"></div>
+      <div className="w-full h-full bg-red-600 bg-opacity-50"></div> */}
     </div>
   )
 }

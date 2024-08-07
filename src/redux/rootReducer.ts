@@ -1,9 +1,9 @@
 import imageReducer from '../features/image/store/imageSlice'
 
-const reducers = {
+const rootReducer = {
   reducer: {
     image: imageReducer,
   },
 }
 
-export default reducers
+export default rootReducer

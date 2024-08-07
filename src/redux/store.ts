@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import reducers from './reducers'
+import rootReducer from './rootReducer'
 
 export const generateStore = () =>
   configureStore({
-    ...reducers,
+    ...rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: true,
