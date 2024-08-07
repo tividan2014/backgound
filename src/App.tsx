@@ -1,5 +1,5 @@
 import useScreenSize from 'common/hooks/useScreenSize'
-import { setImgeSize } from 'features/image/store/imageSlice'
+import { setImageSize } from 'features/image/store/imageSlice'
 import Playground from 'features/playground'
 import { useEffect } from 'react'
 import { useDispatch } from './redux/hooks'
@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     if (width && height) {
-      dispatch(setImgeSize({ width, height }))
+      dispatch(setImageSize({ width, height }))
     }
   }, [width, height, dispatch])
 

@@ -8,6 +8,7 @@ type Color = {
 }
 
 interface BackgroundBase {
+  id: number
   isVisible: boolean
 }
 

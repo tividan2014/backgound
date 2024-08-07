@@ -6,7 +6,7 @@ import { wheelStepSize } from 'common/constants'
 
 interface Props {
   className?: string
-  initialValue: number
+  value: number
   placeholder: string
   icon?: ReactNode
   suffix?: string
@@ -15,16 +15,13 @@ interface Props {
   onChange: (value: number) => void
 }
 
-const Input = ({ className, initialValue, placeholder, icon, suffix, min, max, onChange }: Props) => {
-  const [value, setValue] = useState<number>(initialValue)
-
+const Input = ({ className, value, placeholder, icon, suffix, min, max, onChange }: Props) => {
   const handleOnWheel = (e: WheelEvent<HTMLInputElement>) => {
     const diectionSign = Math.sign(e.deltaY)
     const currentValue = value - diectionSign * wheelStepSize
 
     if (currentValue < min! || currentValue > max!) return
 
-    setValue(currentValue)
     onChange(currentValue)
   }
 
@@ -34,7 +31,6 @@ const Input = ({ className, initialValue, placeholder, icon, suffix, min, max, o
     const currentValue = Number(e.target.value)
     if (currentValue < min! || currentValue > max!) return
 
-    setValue(currentValue)
     onChange(currentValue)
   }
 
@@ -45,7 +41,6 @@ const Input = ({ className, initialValue, placeholder, icon, suffix, min, max, o
       prefix={icon}
       suffix={suffix}
       value={value}
-      defaultValue={initialValue}
       onChange={handleOnChange}
       onWheel={handleOnWheel}
     />
