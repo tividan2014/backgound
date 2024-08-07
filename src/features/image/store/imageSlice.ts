@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Background } from '../components/NestedDivs'
+import { ExposedMethods } from '../Child'
 
 export interface State {
   width: number
   height: number
   backgrounds: Background[]
+  childRef: ExposedMethods | null
 }
 
 const initialState: State = {
@@ -55,6 +57,7 @@ const initialState: State = {
       ],
     },
   ],
+  childRef: null,
 }
 
 export const imageSlice = createSlice({
@@ -79,6 +82,10 @@ export const imageSlice = createSlice({
     updateBackground: (state, action: PayloadAction<Background>) => {},
     showBackground: (state, action: PayloadAction<Background>) => {},
     hideBackground: (state, action: PayloadAction<Background>) => {},
+
+    addChild: (state, action) => {
+      state.childRef = action.payload
+    },
   },
 })
 
@@ -92,6 +99,7 @@ export const {
   updateBackground,
   showBackground,
   hideBackground,
+  addChild,
 } = imageSlice.actions
 
 export default imageSlice.reducer

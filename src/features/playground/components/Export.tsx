@@ -59,6 +59,37 @@ const Export = () => {
     }
   }
 
+  const childRef = useSelector((state) => state.image.childRef)
+
+  const handleAction = async () => {
+    if (childRef) {
+      const divRef = childRef.getDivRef()
+      if (divRef) {
+        // const htmlContent = divRef.innerHTML
+        // const blob = new Blob([htmlContent], { type: 'text/html' })
+        // const url = URL.createObjectURL(blob)
+        // // Create a link element and trigger a download
+        // const link = document.createElement('a')
+        // link.href = url
+        // link.download = 'exported-div.html'
+        // document.body.appendChild(link)
+        // link.click()
+        // document.body.removeChild(link)
+        // // Release the object URL after the download
+        // URL.revokeObjectURL(url)
+        const canvas = await html2canvas(divRef)
+        const imgData = canvas.toDataURL('image/png')
+
+        const link = document.createElement('a')
+        link.href = imgData
+        link.download = 'background.png'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      }
+    }
+  }
+
   return (
     <>
       <Tab className="-mt-4" items={items} />
@@ -71,6 +102,9 @@ const Export = () => {
       </div>
       <div className="flex justify-end">
         <Button className="mt-2" label={'Export'} icon={<ExportIcon />} onClick={handleExport2} />
+      </div>
+      <div className="flex justify-end">
+        <Button className="mt-2" label={'Export'} icon={<ExportIcon />} onClick={handleAction} />
       </div>
     </>
   )
