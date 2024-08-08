@@ -1,14 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Background } from '../components/NestedDivs'
-import { ExposedMethods } from '../Child'
-import { RefObject } from 'react'
 
 export interface State {
   width: number
   height: number
   backgrounds: Background[]
-  childRef: ExposedMethods | null
   imageRef: HTMLDivElement | null
 }
 
@@ -59,7 +56,6 @@ const initialState: State = {
       ],
     },
   ],
-  childRef: null,
   imageRef: null,
 }
 
@@ -81,14 +77,19 @@ export const imageSlice = createSlice({
     addBackground: (state, action: PayloadAction<Background>) => {
       state.backgrounds.push(action.payload)
     },
-    deleteBackground: (state, action: PayloadAction<Background>) => {},
-    updateBackground: (state, action: PayloadAction<Background>) => {},
-    showBackground: (state, action: PayloadAction<Background>) => {},
-    hideBackground: (state, action: PayloadAction<Background>) => {},
-
-    addChild: (state, action) => {
-      state.childRef = action.payload
+    deleteBackground: (state, action: PayloadAction<number>) => {
+      state.backgrounds = state.backgrounds.filter((b) => b.id !== action.payload)
     },
+    updateBackground: (state, action: PayloadAction<Background>) => {},
+    showBackground: (state, action: PayloadAction<number>) => {
+      const background = state.backgrounds[action.payload]
+      background.isVisible = true
+    },
+    hideBackground: (state, action: PayloadAction<number>) => {
+      const background = state.backgrounds[action.payload]
+      background.isVisible = false
+    },
+
     addImageRef: (state, action) => {
       state.imageRef = action.payload
     },
@@ -105,7 +106,6 @@ export const {
   updateBackground,
   showBackground,
   hideBackground,
-  addChild,
   addImageRef,
 } = imageSlice.actions
 

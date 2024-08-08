@@ -1,41 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from '../../redux/hooks'
 import { NestedDivs } from './components/NestedDivs'
-import { addImageRef } from './store/imageSlice'
+import { addImageRef, setImageSize } from './store/imageSlice'
+import { minWheelSize, whellScaleFactor } from 'common/constants'
 
 const Image: React.FC = () => {
   const dispatch = useDispatch()
 
-  const { width: ww, height: hh, backgrounds } = useSelector((state) => state.image)
-
-  const initialWidth = 600
-  const initialHeight = 400
-  const [width, setWidth] = useState(initialWidth)
-  const [height, setHeight] = useState(initialHeight)
-
-  useEffect(() => {
-    if (ww) {
-      setWidth(ww)
-    }
-    if (hh) {
-      setHeight(hh)
-    }
-  }, [ww, hh])
+  const { width, height, backgrounds } = useSelector((state) => state.image)
 
   const divRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     dispatch(addImageRef(divRef.current))
   }, [divRef, dispatch])
-  // dispatch(addImageRef(divRef.current))
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleWheel = (event: WheelEvent) => {
     event.preventDefault()
-    const scaleFactor = -0.4
-    const newWidth = Math.max(10, width + event.deltaY * scaleFactor)
-    const newHeight = (newWidth / initialWidth) * initialHeight
-    setWidth(newWidth)
-    setHeight(newHeight)
+    const newWidth = Math.max(minWheelSize, width + event.deltaY * whellScaleFactor)
+    const newHeight = Math.max(minWheelSize, height + event.deltaY * whellScaleFactor)
+    dispatch(setImageSize({ width: newWidth, height: newHeight }))
   }
 
   useEffect(() => {
@@ -66,7 +50,6 @@ const Image: React.FC = () => {
         backgroundSize: '50px 50px',
       }}
     >
-      {/* {ww}--{hh}--- Resize Me */}
       <NestedDivs backgrounds={backgrounds} />
     </div>
   )

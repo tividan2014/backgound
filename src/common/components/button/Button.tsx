@@ -5,19 +5,23 @@ import { ReactNode } from 'react'
 
 interface Props {
   className?: string
-  label: string
+  type?: 'default' | 'text'
+  label?: string
   icon?: ReactNode
   onClick: () => void
 }
 
-const Button = ({ className, label, icon, onClick }: Props) => {
+const Button = ({ className, type = 'default', label, icon, onClick }: Props) => {
   return (
     <AntButton
       className={cx(className, 'group')}
-      type="default"
-      style={{ background: '#f4f4f5' }}
+      type={type}
+      style={{ background: type === 'default' ? '#f4f4f5' : '' }}
       icon={icon}
-      onClick={onClick}
+      onClick={(event) => {
+        event.preventDefault()
+        onClick()
+      }}
     >
       {label}
     </AntButton>

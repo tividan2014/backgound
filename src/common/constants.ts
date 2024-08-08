@@ -2,4 +2,7 @@ export const chessSquareSize = 50
 
 export const wheelStepSize = 10
 
-export const mainHeaderColor = '#e4e4e7' //zinc-200
+export const whellScaleFactor = -0.4
+export const minWheelSize = 0
+
+export const mainHeaderColor = 'rgba(228, 228, 231, 0.85)' //zinc-200

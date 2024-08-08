@@ -1,7 +1,14 @@
 import Input from 'common/components/input'
 import { AddIcon, EyeIcon, EyeSlashIcon, HorizontalIcon, VerticalIcon, XMarkIcon } from 'common/icons'
 import { useDispatch, useSelector } from '../../../redux/hooks'
-import { addBackground, setImageHeigth, setImageWidth } from 'features/image/store/imageSlice'
+import {
+  addBackground,
+  deleteBackground,
+  hideBackground,
+  setImageHeigth,
+  setImageWidth,
+  showBackground,
+} from 'features/image/store/imageSlice'
 import Tab from 'common/components/tabs/Tabs'
 import { CollapseProps } from 'antd'
 import Button from 'common/components/button'
@@ -40,12 +47,29 @@ const Background = () => {
 
           <div>
             {b.isVisible ? (
-              <EyeIcon isDefaultColor={false} className="text-blue-400" />
+              <Button
+                className="ml-2"
+                type="text"
+                icon={<EyeIcon />}
+                onClick={() => {
+                  dispatch(hideBackground(b.id))
+                }}
+              />
             ) : (
-              <EyeSlashIcon isDefaultColor={false} className="text-red-400" />
+              <Button
+                className="ml-2"
+                type="text"
+                icon={
+                  <EyeSlashIcon
+                    isDefaultColor={false}
+                    className="text-red-200 hover:text-red-500 group-hover:text-red-500 duration-500"
+                  />
+                }
+                onClick={() => dispatch(showBackground(b.id))}
+              />
             )}
 
-            <XMarkIcon className="ml-2" />
+            <Button type="text" icon={<XMarkIcon />} onClick={() => dispatch(deleteBackground(b.id))} />
           </div>
         </div>
       ),
