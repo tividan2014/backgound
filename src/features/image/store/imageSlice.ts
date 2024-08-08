@@ -1,6 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Background } from '../components/NestedDivs'
+
+type Color = {
+  r: number
+  b: number
+  g: number
+  a: number
+}
+
+interface BackgroundBase {
+  isVisible: boolean
+}
+
+export interface SolidBackground extends BackgroundBase {
+  color: Color
+}
+
+export interface LinearBackground extends BackgroundBase {
+  turn: number
+  colors: Color[]
+}
+
+export type Background = SolidBackground | LinearBackground
 
 export interface State {
   imageRef: HTMLDivElement | null

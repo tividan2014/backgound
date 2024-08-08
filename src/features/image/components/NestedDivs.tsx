@@ -1,26 +1,5 @@
 import { CSSProperties } from 'react'
-
-type Color = {
-  r: number
-  b: number
-  g: number
-  a: number
-}
-
-interface BackgroundBase {
-  isVisible: boolean
-}
-
-export interface SolidBackground extends BackgroundBase {
-  color: Color
-}
-
-export interface LinearBackground extends BackgroundBase {
-  turn: number
-  colors: Color[]
-}
-
-export type Background = SolidBackground | LinearBackground
+import { Background, LinearBackground, SolidBackground } from '../store/imageSlice'
 
 const isSolidBackground = (background: unknown): background is SolidBackground => {
   return typeof (background as SolidBackground).color !== 'undefined'

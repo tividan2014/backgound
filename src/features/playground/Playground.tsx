@@ -56,6 +56,7 @@ const Playground = () => {
       <Image />
       <Collapse
         items={playgroundFlowItems}
+        active={2}
         className="mt-10 ml-10 w-3/12 min-w-64 max-w-96 absolute"
         bordered={true}
         accordion

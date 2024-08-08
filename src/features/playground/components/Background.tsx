@@ -8,13 +8,13 @@ import {
   setImageHeigth,
   setImageWidth,
   showBackground,
+  SolidBackground,
 } from 'features/image/store/imageSlice'
 import Tab from 'common/components/tabs/Tabs'
 import { CollapseProps } from 'antd'
 import Button from 'common/components/button'
 import Collapse from 'common/components/collapse'
 import { CSSProperties } from 'react'
-import { SolidBackground } from 'features/image/components/NestedDivs'
 
 const panelStyle: React.CSSProperties = {
   background: '#f8f8f8',
@@ -29,10 +29,10 @@ const Background = () => {
 
   //const genExtra = () => <AddIcon isDefaultColor={true} />
 
-  backgrounds.map((b, index) => {
+  backgrounds.forEach((b, index) => {
     const color = (b as SolidBackground).color
 
-    if (!color) return //TODO
+    if (!color) return <></>
 
     const style: CSSProperties = {
       backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
@@ -46,29 +46,23 @@ const Background = () => {
           <span>Solid</span>
 
           <div>
-            {b.isVisible ? (
-              <Button
-                className="ml-2"
-                type="text"
-                icon={<EyeIcon />}
-                onClick={() => {
-                  dispatch(hideBackground(index))
-                }}
-              />
-            ) : (
-              <Button
-                className="ml-2"
-                type="text"
-                icon={
+            <Button
+              className="ml-2"
+              type="text"
+              icon={
+                b.isVisible ? (
+                  <EyeIcon />
+                ) : (
                   <EyeSlashIcon
                     isDefaultColor={false}
                     className="text-red-200 hover:text-red-500 group-hover:text-red-500 duration-500"
                   />
-                }
-                onClick={() => dispatch(showBackground(index))}
-              />
-            )}
-
+                )
+              }
+              onClick={() => {
+                dispatch(b.isVisible ? hideBackground(index) : showBackground(index))
+              }}
+            />
             <Button type="text" icon={<XMarkIcon />} onClick={() => dispatch(deleteBackground(index))} />
           </div>
         </div>
