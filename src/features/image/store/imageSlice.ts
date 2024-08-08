@@ -3,33 +3,30 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { Background } from '../components/NestedDivs'
 
 export interface State {
+  imageRef: HTMLDivElement | null
   width: number
   height: number
   backgrounds: Background[]
-  imageRef: HTMLDivElement | null
 }
 
 const initialState: State = {
+  imageRef: null,
   width: 0,
   height: 0,
   backgrounds: [
     {
-      id: 0,
       isVisible: false,
       color: { r: 0, g: 0, b: 255, a: 0.1 },
     },
     {
-      id: 1,
       isVisible: true,
       color: { r: 255, g: 0, b: 0, a: 0.2 },
     },
     {
-      id: 2,
       isVisible: true,
       color: { r: 0, g: 255, b: 0, a: 0.3 },
     },
     {
-      id: 3,
       isVisible: false,
       turn: 45,
       colors: [
@@ -38,7 +35,6 @@ const initialState: State = {
       ],
     },
     {
-      id: 4,
       isVisible: false,
       turn: 217,
       colors: [
@@ -47,7 +43,6 @@ const initialState: State = {
       ],
     },
     {
-      id: 5,
       isVisible: true,
       turn: 336,
       colors: [
@@ -56,7 +51,6 @@ const initialState: State = {
       ],
     },
   ],
-  imageRef: null,
 }
 
 export const imageSlice = createSlice({
@@ -78,7 +72,7 @@ export const imageSlice = createSlice({
       state.backgrounds.push(action.payload)
     },
     deleteBackground: (state, action: PayloadAction<number>) => {
-      state.backgrounds = state.backgrounds.filter((b) => b.id !== action.payload)
+      state.backgrounds.splice(action.payload, 1)
     },
     updateBackground: (state, action: PayloadAction<Background>) => {},
     showBackground: (state, action: PayloadAction<number>) => {

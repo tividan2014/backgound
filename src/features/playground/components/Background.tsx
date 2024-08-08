@@ -52,7 +52,7 @@ const Background = () => {
                 type="text"
                 icon={<EyeIcon />}
                 onClick={() => {
-                  dispatch(hideBackground(b.id))
+                  dispatch(hideBackground(index))
                 }}
               />
             ) : (
@@ -65,11 +65,11 @@ const Background = () => {
                     className="text-red-200 hover:text-red-500 group-hover:text-red-500 duration-500"
                   />
                 }
-                onClick={() => dispatch(showBackground(b.id))}
+                onClick={() => dispatch(showBackground(index))}
               />
             )}
 
-            <Button type="text" icon={<XMarkIcon />} onClick={() => dispatch(deleteBackground(b.id))} />
+            <Button type="text" icon={<XMarkIcon />} onClick={() => dispatch(deleteBackground(index))} />
           </div>
         </div>
       ),
@@ -80,15 +80,14 @@ const Background = () => {
     })
   })
 
-  function handleOnClick(): void {
+  const handleOnClick = () => {
     const newBackground = {
-      id: 1,
       isVisible: true,
       color: { r: 255, g: 0, b: 0, a: 0.2 },
     }
-  }
 
-  //dispatch(addBackground(newBackground))
+    dispatch(addBackground(newBackground))
+  }
 
   return (
     <div className="">

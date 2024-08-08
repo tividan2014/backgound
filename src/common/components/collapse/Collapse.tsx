@@ -19,7 +19,7 @@ const Collapse = ({ className, items, bordered = true, size, accordion }: Props)
       items={items}
       defaultActiveKey={['1']}
       onChange={onChange}
-      bordered={bordered}
+      bordered={items?.length ? bordered : false}
       ghost={false}
       size={size}
       accordion={accordion}
