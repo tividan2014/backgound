@@ -11,9 +11,7 @@ interface Props {
 }
 
 const Collapse = ({ className, items, bordered = true, size, accordion }: Props) => {
-  const onChange = (key: string | string[]) => {
-    console.log(key)
-  }
+  const onChange = (key: string | string[]) => {}
 
   return (
     <AntCollapse

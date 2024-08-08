@@ -1,20 +1,17 @@
 import Image from 'features/image'
 import Collapse from 'common/components/collapse'
-import Button from 'common/components/button'
-import Input from 'common/components/input/Input'
-import { AddIcon, HorizontalIcon, PhotoIcon, VerticalIcon, XMarkIcon } from 'common/icons'
-import Tab from 'common/components/tabs/Tabs'
 import { CollapseProps } from 'antd'
 import Size from './components/Size'
 import Background from './components/Background'
 import Export from './components/Export'
-import Child, { ExposedMethods } from 'features/image/Child'
+import { ExposedMethods } from 'features/image/Child'
 import { useEffect, useRef } from 'react'
 import { useDispatch } from '../../redux/hooks'
 import { addChild } from 'features/image/store/imageSlice'
+import { mainHeaderColor } from 'common/constants'
 
-const panelStyle: React.CSSProperties = {
-  background: '#eee',
+const headerStyle: React.CSSProperties = {
+  background: mainHeaderColor,
 }
 
 export const playgroundFlowItems: CollapseProps['items'] = [
@@ -22,25 +19,25 @@ export const playgroundFlowItems: CollapseProps['items'] = [
     key: '1',
     label: 'Image size',
     children: <Size />,
-    style: panelStyle,
+    style: headerStyle,
   },
   {
     key: '2',
     label: 'Background',
     children: <Background />,
-    style: panelStyle,
+    style: headerStyle,
   },
   {
     key: '3',
     label: 'Elements',
     children: <p></p>,
-    style: panelStyle,
+    style: headerStyle,
   },
   {
     key: '4',
     label: 'Export',
     children: <Export />,
-    style: panelStyle,
+    style: headerStyle,
   },
 ]
 

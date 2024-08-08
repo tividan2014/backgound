@@ -15,6 +15,9 @@ module.exports = {
           DEFAULT: '#f8f8f8',
         },
       },
+      transitionDuration: {
+        2000: '2000ms', //TODO unused
+      },
     },
   },
   plugins: [],

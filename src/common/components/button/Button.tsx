@@ -12,7 +12,13 @@ interface Props {
 
 const Button = ({ className, label, icon, onClick }: Props) => {
   return (
-    <AntButton className={cx(className, 'group')} type="primary" icon={icon} onClick={onClick}>
+    <AntButton
+      className={cx(className, 'group')}
+      type="default"
+      style={{ background: '#f4f4f5' }}
+      icon={icon}
+      onClick={onClick}
+    >
       {label}
     </AntButton>
   )
