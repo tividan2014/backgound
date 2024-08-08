@@ -6,7 +6,7 @@ export const generateStore = () =>
     ...rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: true,
+        serializableCheck: false,
         immutableCheck: true,
       }),
   })

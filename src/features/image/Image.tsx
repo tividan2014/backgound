@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from '../../redux/hooks'
 import { NestedDivs } from './components/NestedDivs'
+import { addImageRef } from './store/imageSlice'
 
 const Image: React.FC = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,10 @@ const Image: React.FC = () => {
   }, [ww, hh])
 
   const divRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    dispatch(addImageRef(divRef.current))
+  }, [divRef, dispatch])
+  // dispatch(addImageRef(divRef.current))
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleWheel = (event: WheelEvent) => {
