@@ -7,8 +7,10 @@ import Export from './components/Export'
 import { mainHeaderColor } from 'common/constants'
 import useScreenSize from 'common/hooks/useScreenSize'
 import { setImageSize } from 'features/image/store/imageSlice'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useDispatch } from '../../redux/hooks'
+import { ArrowsOutIcon, ExportIcon, SquaresIcon, StackIcon } from 'common/icons'
+import { Label } from './components/Label'
 
 const headerStyle: React.CSSProperties = {
   background: mainHeaderColor,
@@ -17,25 +19,25 @@ const headerStyle: React.CSSProperties = {
 export const playgroundFlowItems: CollapseProps['items'] = [
   {
     key: '1',
-    label: 'Image size',
+    label: Label({ icon: <ArrowsOutIcon isDefaultColor={false} />, label: 'Image size' }),
     children: <Size />,
     style: headerStyle,
   },
   {
     key: '2',
-    label: 'Background',
+    label: Label({ icon: <StackIcon isDefaultColor={false} />, label: 'Backgrounds' }),
     children: <Background />,
     style: headerStyle,
   },
   {
     key: '3',
-    label: 'Elements',
+    label: Label({ icon: <SquaresIcon isDefaultColor={false} />, label: 'Elements' }),
     children: <p></p>,
     style: headerStyle,
   },
   {
     key: '4',
-    label: 'Export',
+    label: Label({ icon: <ExportIcon isDefaultColor={false} />, label: 'Export' }),
     children: <Export />,
     style: headerStyle,
   },

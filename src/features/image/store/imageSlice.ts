@@ -1,30 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-type Color = {
-  r: number
-  b: number
-  g: number
-  a: number
-}
-
-interface BackgroundBase {
-  isVisible: boolean
-}
-
-export interface SolidBackground extends BackgroundBase {
-  color: Color
-}
-
-export interface LinearBackground extends BackgroundBase {
-  turn: number
-  colors: Color[]
-}
-
-export type Background = SolidBackground | LinearBackground
+import { Background, SolidBackground } from './types'
 
 export interface State {
   imageRef: HTMLDivElement | null
+  activeBackground: number
   width: number
   height: number
   backgrounds: Background[]
@@ -32,6 +12,7 @@ export interface State {
 
 const initialState: State = {
   imageRef: null,
+  activeBackground: 0,
   width: 0,
   height: 0,
   backgrounds: [
@@ -91,11 +72,17 @@ export const imageSlice = createSlice({
 
     addBackground: (state, action: PayloadAction<Background>) => {
       state.backgrounds.push(action.payload)
+      state.activeBackground = state.backgrounds.length - 1
     },
     deleteBackground: (state, action: PayloadAction<number>) => {
       state.backgrounds.splice(action.payload, 1)
     },
-    updateBackground: (state, action: PayloadAction<Background>) => {},
+    updateBackground: (state, action: PayloadAction<{ background: SolidBackground; index: number }>) => {
+      const { background: current, index } = action.payload
+
+      const background = state.backgrounds[index] as SolidBackground
+      background.color = current.color
+    },
     showBackground: (state, action: PayloadAction<number>) => {
       const background = state.backgrounds[action.payload]
       background.isVisible = true
@@ -107,6 +94,10 @@ export const imageSlice = createSlice({
 
     addImageRef: (state, action) => {
       state.imageRef = action.payload
+    },
+
+    setActiveBackground: (state, action: PayloadAction<number>) => {
+      state.activeBackground = action.payload
     },
   },
 })

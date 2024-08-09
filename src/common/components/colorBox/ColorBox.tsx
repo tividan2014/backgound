@@ -15,7 +15,7 @@ interface Props {
   colors: Color[]
 }
 
-const Slider = ({ className, type, colors }: Props) => {
+const ColorBox = ({ className, type, colors }: Props) => {
   const style: CSSProperties = {}
 
   switch (type) {
@@ -30,4 +30,4 @@ const Slider = ({ className, type, colors }: Props) => {
   return <span className={cx(className, 'w-5 h-5')} style={style}></span>
 }
 
-export default Slider
+export default ColorBox

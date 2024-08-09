@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { Background, LinearBackground, SolidBackground } from '../store/imageSlice'
+import { Background, LinearBackground, SolidBackground } from '../store/types'
 
 const isSolidBackground = (background: unknown): background is SolidBackground => {
   return typeof (background as SolidBackground).color !== 'undefined'
