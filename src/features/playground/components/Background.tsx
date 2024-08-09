@@ -1,4 +1,14 @@
-import { AddIcon, CodeIcon, EyeIcon, EyeSlashIcon, GradientIcon, PhotoIcon, WarningIcon, XMarkIcon } from 'common/icons'
+import {
+  AddIcon,
+  CodeIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  GradientIcon,
+  PhotoIcon,
+  SolidIcon,
+  WarningIcon,
+  XMarkIcon,
+} from 'common/icons'
 import { useDispatch, useSelector } from '../../../redux/hooks'
 import { addBackground, deleteBackground, hideBackground, showBackground } from 'features/image/store/imageSlice'
 import Tab from 'common/components/tabs/Tabs'
@@ -8,9 +18,11 @@ import Collapse from 'common/components/collapse'
 import { CSSProperties } from 'react'
 import { backgroundHeaderColor } from 'common/constants'
 import ColorBox from 'common/components/colorBox'
-import BackSolid from './BSolid'
-import { Background as BackgroundType } from '../../image/store/types'
+import { Background as BackgroundType, LinearBackground } from '../../image/store/types'
 import { SolidBackground } from 'features/image/store/types'
+import BLinear from './BLinear'
+import BSolid from './BSolid'
+import useRandomColor from 'common/hooks/useRandomColor'
 
 const panelStyle: CSSProperties = {
   background: backgroundHeaderColor,
@@ -20,14 +32,14 @@ const getBItems = (background: BackgroundType, index: number) => {
   const bItems: TabsProps['items'] = [
     {
       key: '11',
-      label: '',
-      children: <BackSolid background={background as SolidBackground} index={index} />,
-      icon: <CodeIcon isDefaultColor={false} size={5} />,
+      label: 'Solid',
+      children: <BSolid background={background as SolidBackground} index={index} />,
+      icon: <SolidIcon isDefaultColor={false} />,
     },
     {
       key: '22',
-      label: '',
-      children: <div className="flex justify-end">b</div>,
+      label: 'Linear',
+      children: <BLinear background={background as LinearBackground} index={index} />,
       icon: <GradientIcon isDefaultColor={true} size={5} />,
     },
     {
@@ -57,6 +69,7 @@ const Background = () => {
   const dispatch = useDispatch()
 
   const { backgrounds } = useSelector((state) => state.image)
+  const randomColor = useRandomColor()
 
   const items: CollapseProps['items'] = []
 
@@ -100,7 +113,7 @@ const Background = () => {
           </div>
         </div>
       ),
-      children: <Tab className="-mt-4" items={getBItems(b, index)} />,
+      children: <Tab className="-mt-3" items={getBItems(b, index)} />,
       style: panelStyle,
 
       //  extra: genExtra(),
@@ -110,7 +123,8 @@ const Background = () => {
   const handleAddBackground = () => {
     const newBackground = {
       isVisible: true,
-      color: { r: 0, g: 0, b: 0, a: 0.5 },
+      // color: { r: 255, g: 255, b: 255, a: 0.5 },
+      color: randomColor,
     }
 
     dispatch(addBackground(newBackground))
