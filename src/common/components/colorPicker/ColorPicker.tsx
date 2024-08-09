@@ -12,7 +12,7 @@ interface Props {
 const ColorPicker = ({ className, initialValue, placeholder }: Props) => {
   const [value, setValue] = useState(initialValue)
 
-  return <AntColorPicker className={cx(className, 'flex items-center')} defaultValue="#1677ff" showText />
+  return <AntColorPicker className={cx(className, 'flex items-center')} defaultValue="#1677ff" showText disabledAlpha />
 }
 
 export default ColorPicker
