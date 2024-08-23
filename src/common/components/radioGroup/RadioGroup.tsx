@@ -8,14 +8,16 @@ type Item = { label: ReactNode; value: string }
 interface Props {
   className?: string
   items: Item[]
+  initialValue?: string
+  onChange: (value: string) => void
 }
 
-const RadioGroup = ({ className, items }: Props) => {
-  const [value3, setValue3] = useState('Apple')
+const RadioGroup = ({ className, items, initialValue, onChange }: Props) => {
+  const [value3, setValue] = useState(initialValue ?? '')
 
   const onChange3 = ({ target: { value } }: RadioChangeEvent) => {
-    console.log('radio3 checked', value)
-    setValue3(value)
+    setValue(value)
+    onChange(value)
   }
   return (
     <Radio.Group
@@ -24,8 +26,11 @@ const RadioGroup = ({ className, items }: Props) => {
       onChange={onChange3}
       value={value3}
       optionType="button"
-      size="small"
-    />
+      // size="small"
+      //  buttonStyle="solid"
+    >
+      sdf
+    </Radio.Group>
   )
 }
 

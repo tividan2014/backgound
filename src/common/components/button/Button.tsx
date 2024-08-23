@@ -2,6 +2,7 @@ import cx from 'classnames'
 
 import { Button as AntButton } from 'antd'
 import { ReactNode } from 'react'
+import Tooltip from '../Tooltip'
 
 interface Props {
   className?: string
