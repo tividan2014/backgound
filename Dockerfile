@@ -12,4 +12,16 @@ COPY ./ ./
 RUN yarn install --quiet
 
 # start app
-CMD ["yarn", "start"]
+RUN yarn run build
+
+# Use an official Nginx image to serve the build files
+FROM nginx:stable
+
+# Copy the build files to the Nginx server
+COPY --from=0 /elme-background/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
