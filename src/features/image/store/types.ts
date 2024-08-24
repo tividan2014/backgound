@@ -1,3 +1,8 @@
+export enum ExportAs {
+  image,
+  html,
+}
+
 export type Color = {
   r: number
   g: number

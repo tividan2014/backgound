@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Background, SolidBackground } from './types'
+import { Background, ExportAs, SolidBackground } from './types'
 
 export interface State {
-  imageRef: HTMLDivElement | null
+  exporting: ExportAs | null
+  isImageExporting: boolean
+  isHtmlExporting: boolean
   activeBackground: number
   width: number
   height: number
@@ -11,7 +13,9 @@ export interface State {
 }
 
 const initialState: State = {
-  imageRef: null,
+  exporting: null,
+  isImageExporting: false,
+  isHtmlExporting: false,
   activeBackground: 0,
   width: 0,
   height: 0,
@@ -70,6 +74,10 @@ export const imageSlice = createSlice({
       state.height = action.payload
     },
 
+    exportContent: (state, action: PayloadAction<ExportAs | null>) => {
+      state.exporting = action.payload
+    },
+
     addBackground: (state, action: PayloadAction<Background>) => {
       state.backgrounds.push(action.payload)
       state.activeBackground = state.backgrounds.length - 1
@@ -92,10 +100,6 @@ export const imageSlice = createSlice({
       background.isVisible = false
     },
 
-    addImageRef: (state, action) => {
-      state.imageRef = action.payload
-    },
-
     setActiveBackground: (state, action: PayloadAction<number>) => {
       state.activeBackground = action.payload
     },
@@ -107,12 +111,14 @@ export const {
   setImageSize,
   setImageWidth,
   setImageHeigth,
+
+  exportContent,
+
   addBackground,
   deleteBackground,
   updateBackground,
   showBackground,
   hideBackground,
-  addImageRef,
 } = imageSlice.actions
 
 export default imageSlice.reducer

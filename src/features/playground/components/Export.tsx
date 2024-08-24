@@ -1,39 +1,20 @@
 import { CodeIcon, ExportIcon, PhotoIcon } from 'common/icons'
-import { useSelector } from '../../../redux/hooks'
+import { useDispatch } from '../../../redux/hooks'
 import Tab from 'common/components/tabs/Tabs'
 import Button from 'common/components/button'
 import { TabsProps } from 'antd'
-import html2canvas from 'html2canvas'
+import { exportContent } from 'features/image/store/imageSlice'
+import { ExportAs } from 'features/image/store/types'
 
 const Export = () => {
-  const { imageRef } = useSelector((state) => state.image)
-
-  function createDonwloadLink(href: string, extension: string) {
-    const link = document.createElement('a')
-    link.href = href
-    link.download = `background.${extension}`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+  const dispatch = useDispatch()
 
   const handleExportImage = async () => {
-    if (imageRef) {
-      const canvas = await html2canvas(imageRef)
-      const imgData = canvas.toDataURL('image/png')
-
-      createDonwloadLink(imgData, 'png')
-    }
+    dispatch(exportContent(ExportAs.image))
   }
 
   const handleExportHtml = async () => {
-    if (imageRef) {
-      const blob = new Blob([imageRef!.outerHTML], { type: 'text/html' })
-      const url = URL.createObjectURL(blob)
-
-      createDonwloadLink(url, '.html')
-      URL.revokeObjectURL(url)
-    }
+    dispatch(exportContent(ExportAs.html))
   }
 
   const items: TabsProps['items'] = [
@@ -59,11 +40,7 @@ const Export = () => {
     },
   ]
 
-  return (
-    <>
-      <Tab className="-mt-3" items={items} />
-    </>
-  )
+  return <Tab className="-mt-3" items={items} />
 }
 
 export default Export

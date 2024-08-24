@@ -1,26 +1,68 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from '../../redux/hooks'
 import { NestedDivs } from './components/NestedDivs'
-import { addImageRef, setImageSize } from './store/imageSlice'
+import { exportContent, setImageSize } from './store/imageSlice'
 import { minWheelSize, whellScaleFactor } from 'common/constants'
+import html2canvas from 'html2canvas'
+import { ExportAs } from './store/types'
 
 const Image: React.FC = () => {
   const dispatch = useDispatch()
 
-  const { width, height, backgrounds } = useSelector((state) => state.image)
+  const { width, height, exporting, backgrounds } = useSelector((state) => state.image)
 
   const divRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    dispatch(addImageRef(divRef.current))
-  }, [divRef, dispatch])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleWheel = (event: WheelEvent) => {
-    event.preventDefault()
-    const newWidth = Math.max(minWheelSize, width + event.deltaY * whellScaleFactor)
-    const newHeight = Math.max(minWheelSize, height + event.deltaY * whellScaleFactor)
-    dispatch(setImageSize({ width: newWidth, height: newHeight }))
+  const createDonwloadLink = (href: string, extension: string) => {
+    const link = document.createElement('a')
+    link.href = href
+    link.download = `background.${extension}`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
+
+  const handleExportImage = useCallback(async () => {
+    if (divRef.current) {
+      const canvas = await html2canvas(divRef.current)
+      const imgData = canvas.toDataURL('image/png')
+      createDonwloadLink(imgData, 'png')
+    }
+  }, [])
+
+  const handleExportHtml = useCallback(async () => {
+    if (divRef.current) {
+      const blob = new Blob([divRef.current!.outerHTML], { type: 'text/html' })
+      const url = URL.createObjectURL(blob)
+      createDonwloadLink(url, '.html')
+      URL.revokeObjectURL(url)
+    }
+  }, [])
+
+  useEffect(() => {
+    switch (exporting) {
+      case ExportAs.image:
+        handleExportImage()
+        break
+      case ExportAs.html:
+        handleExportHtml()
+        break
+    }
+
+    if (exporting) {
+      dispatch(exportContent(null))
+    }
+  }, [dispatch, exporting, handleExportHtml, handleExportImage])
+
+  const handleWheel = useCallback(
+    (event: WheelEvent) => {
+      event.preventDefault()
+      const newWidth = Math.max(minWheelSize, width + event.deltaY * whellScaleFactor)
+      const newHeight = Math.max(minWheelSize, height + event.deltaY * whellScaleFactor)
+      dispatch(setImageSize({ width: newWidth, height: newHeight }))
+    },
+    [dispatch, height, width]
+  )
 
   useEffect(() => {
     const divElement = divRef.current
@@ -38,10 +80,7 @@ const Image: React.FC = () => {
   return (
     <div
       className="flex justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-500"
-      ref={divRef}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
         backgroundImage: `linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd),
           linear-gradient(45deg, #ddd 25%, transparent 25%,  transparent 75%, #ddd 75%, #ddd),
           linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff),
@@ -50,7 +89,15 @@ const Image: React.FC = () => {
         backgroundSize: '50px 50px',
       }}
     >
-      <NestedDivs backgrounds={backgrounds} />
+      <div
+        ref={divRef}
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+        }}
+      >
+        <NestedDivs backgrounds={backgrounds} />
+      </div>
     </div>
   )
 }
