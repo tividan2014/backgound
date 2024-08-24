@@ -5,12 +5,14 @@ import { Slider as AntSlider } from 'antd'
 interface Props {
   className?: string
   value: number
+  min: number
+  max: number
   onChange: (value: number) => void
 }
 
-const Slider = ({ className, value, onChange }: Props) => {
+const Slider = ({ className, value, min, max, onChange }: Props) => {
   return (
-    <AntSlider className={cx(className, '')} value={value} onChange={onChange} />
+    <AntSlider className={cx(className, '')} value={value} min={min} max={max} onChange={onChange} />
 
     // <div className={cx(className, 'flex items-center')}>
     //   <span>{placeholder}</span>

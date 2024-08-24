@@ -8,10 +8,17 @@ export type Color = {
   g: number
   b: number
   a: number
+  p?: number
+}
+
+export enum BackgroundType {
+  solid = 'Solid',
+  linear = 'Linear',
 }
 
 interface BackgroundBase {
   isVisible: boolean
+  type: BackgroundType
 }
 
 export interface SolidBackground extends BackgroundBase {

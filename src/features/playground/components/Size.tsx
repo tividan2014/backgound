@@ -1,6 +1,5 @@
 import Input from 'common/components/input'
 import {
-  AddIcon,
   ArrowsLeftRightIcon,
   ArrowsOutIcon,
   HorizontalIcon,
@@ -13,8 +12,6 @@ import { useDispatch, useSelector } from '../../../redux/hooks'
 import { setImageHeigth, setImageSize, setImageWidth } from 'features/image/store/imageSlice'
 import RadioGroup from 'common/components/radioGroup'
 import Button from 'common/components/button'
-import { Tooltip } from 'antd'
-//import Tooltip from 'common/components/Tooltip'
 
 enum Proportion {
   Square = '11',

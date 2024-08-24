@@ -18,17 +18,17 @@ import Collapse from 'common/components/collapse'
 import { CSSProperties } from 'react'
 import { backgroundHeaderColor } from 'common/constants'
 import ColorBox from 'common/components/colorBox'
-import { Background as BackgroundType, LinearBackground } from '../../image/store/types'
+import { Background as BackgroundT, BackgroundType, LinearBackground } from '../../image/store/types'
 import { SolidBackground } from 'features/image/store/types'
-import BLinear from './BLinear'
 import BSolid from './BSolid'
 import useRandomColor from 'common/hooks/useRandomColor'
+import BLinear from './BLinear'
 
 const panelStyle: CSSProperties = {
   background: backgroundHeaderColor,
 }
 
-const getBItems = (background: BackgroundType, index: number) => {
+const getBItems = (background: BackgroundT, index: number) => {
   const bItems: TabsProps['items'] = [
     {
       key: '11',
@@ -88,7 +88,7 @@ const Background = () => {
         <div className="flex justify-between items-center group">
           <ColorBox type="solid" colors={[bs.color]} />
 
-          <span>Solid</span>
+          <span className="">{b.type}</span>
 
           <div>
             {isColorCovering && <WarningIcon isDefaultColor={false} className="text-yellow-500" />}
@@ -123,7 +123,7 @@ const Background = () => {
   const handleAddBackground = () => {
     const newBackground = {
       isVisible: true,
-      // color: { r: 255, g: 255, b: 255, a: 0.5 },
+      type: BackgroundType.solid,
       color: randomColor,
     }
 

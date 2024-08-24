@@ -1,12 +1,12 @@
 import { CSSProperties } from 'react'
-import { Background, LinearBackground, SolidBackground } from '../store/types'
+import { Background, BackgroundType, LinearBackground, SolidBackground } from '../store/types'
 
-const isSolidBackground = (background: unknown): background is SolidBackground => {
-  return typeof (background as SolidBackground).color !== 'undefined'
+const isSolidBackground = (background: Background) => {
+  return background.type === BackgroundType.solid
 }
 
-const isLinearBackground = (background: unknown): background is LinearBackground => {
-  return typeof (background as LinearBackground).turn !== 'undefined'
+const isLinearBackground = (background: Background) => {
+  return background.type === BackgroundType.linear
 }
 
 const generateNestedDivs = (backgrounds: Background[], count: number): JSX.Element => {
@@ -31,14 +31,16 @@ const generateNestedDivs = (backgrounds: Background[], count: number): JSX.Eleme
   }
 
   if (isLinearBackground(backgrounds[count - 1])) {
-    const b = backgrounds[count - 1] as LinearBackground
-    const turn = b.turn
-    const tt = b.colors.map((bb) => `rgba(${bb.r},${bb.g},${bb.b},${bb.a})`).join(',')
+    const background = backgrounds[count - 1] as LinearBackground
+    const turn = background.turn
 
+    const linearColors = background.colors
+      .map((b) => `rgba(${b.r},${b.g},${b.b},${b.a})${b.p ? ` ${b.p}%` : ''}`)
+      .join(',')
     const style: CSSProperties = {
       width: '100%',
       height: '100%',
-      background: `linear-gradient(${turn}deg, ${tt} )`,
+      background: `linear-gradient(${turn}deg, ${linearColors} )`,
     }
 
     return <div style={style}>{generateNestedDivs(backgrounds, count - 1)}</div>

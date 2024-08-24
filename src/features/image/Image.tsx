@@ -79,7 +79,7 @@ const Image: React.FC = () => {
 
   return (
     <div
-      className="flex justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-500"
+      className="flex justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{
         backgroundImage: `linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd),
           linear-gradient(45deg, #ddd 25%, transparent 25%,  transparent 75%, #ddd 75%, #ddd),
@@ -90,6 +90,7 @@ const Image: React.FC = () => {
       }}
     >
       <div
+        className="duration-500"
         ref={divRef}
         style={{
           width: `${width}px`,
